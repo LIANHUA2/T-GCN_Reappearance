@@ -8,6 +8,8 @@ A stable version of this repository can be found at [the official repository](ht
 
 Notice that [the original implementation](https://github.com/lehaifeng/T-GCN/tree/master/T-GCN/T-GCN-TensorFlow) is in TensorFlow, which performs a tiny bit better than this implementation for now.
 
+
+
 ## Requirements
 
 * numpy
@@ -18,6 +20,35 @@ Notice that [the original implementation](https://github.com/lehaifeng/T-GCN/tre
 * torchmetrics>=0.3.0
 * python-dotenv
 
+## 2025年3月21日记录
+
+我于 2025 年 3 月 21 日基本复现了原论文和原代码的结果，使用的是 Linux 系统（无 GUI）和 GTX3090 GPU。将本目录下的所有文件解压至系统根目录。
+```
+root
+├── T-GCN-PyTorch
+│   ├── data
+|   ├── models   
+|   ├── tasks 
+|   └── ...
+└── ...
+```
+在T-GCN-PyTorch目录中，运行以下代码：
+```
+pip install -r requirements.txt
+```
+此时会自动安装该文件中所需要的库。
+
+此外，你可能还需要安装scipy库：
+```
+pip install scipy
+```
+注意，在 PyTorch Lightning 的较新版本中，Trainer.add_argparse_args 方法已经被弃用或移除。从 PyTorch Lightning 2.0 开始，add_argparse_args 方法不再支持，因此你需要调整代码以适配新版本的 PyTorch Lightning。
+
+我的解决方法是降级PyTorch Lightning 的版本：
+```
+pip install pytorch-lightning==1.9.5
+```
+接下来之间复制Model Training中的代码在控制台中运行即可。
 ## Model Training
 
 ```bash
@@ -32,3 +63,30 @@ python main.py --model_name TGCN --max_epochs 3000 --learning_rate 0.001 --weigh
 You can also adjust the `--data`, `--seq_len` and `--pre_len` parameters.
 
 Run `tensorboard --logdir lightning_logs/version_0` to monitor the training progress and view the prediction results.
+
+## 复现结果
+* GCN                         
+* ExplainedVar:0.6829
+* MAE:5.4203
+* R2:0.6825
+* RMSE:7.8182
+* accuracy:0.8669
+* val_loss:61.1250
+---------------------
+* GRU                         
+* ExplainedVar:0.8393
+* MAE:3.1719
+* R2:0.8365
+* RMSE:5.6170
+* accuracy:0.9044
+* val_loss:31.5502
+---------------------
+* T-GCN                         
+* ExplainedVar:0.8562
+* MAE:3.2975
+* R2:0.8561
+* RMSE:5.2609
+* accuracy:0.9104
+* val_loss:3342988.5
+ ---------------------
+ 因为某些异常，我的T-GCN的val_loss值有错误。整体上来看，T-GCN确实最优，GRU次之。
