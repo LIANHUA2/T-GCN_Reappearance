@@ -28,11 +28,21 @@ Notice that [the original implementation](https://github.com/lehaifeng/T-GCN/tre
 root
 ├── T-GCN-PyTorch
 │   ├── data
-|   ├── models   
+|   ├── models
+|   ├── main.py 
 |   ├── tasks 
 |   └── ...
 └── ...
 ```
+main.py文件有以下代码：
+```
+DATA_PATHS = {
+    "shenzhen": {"feat": "data/sz_speed.csv", "adj": "data/sz_adj.csv"},
+    "losloop": {"feat": "data/los_speed.csv", "adj": "data/los_adj.csv"},
+}
+```
+可以根据需要在此字典中替换你自己的数据集。
+
 在T-GCN-PyTorch目录中，运行以下代码：
 ```
 pip install -r requirements.txt
@@ -64,6 +74,19 @@ python main.py --model_name TGCN --max_epochs 3000 --learning_rate 0.001 --weigh
 You can also adjust the `--data`, `--seq_len` and `--pre_len` parameters.
 
 Run `tensorboard --logdir lightning_logs/version_0` to monitor the training progress and view the prediction results.
+
+假设你更改了数据集：
+```
+DATA_PATHS = {
+    "shenzhen": {"feat": "data/sz_speed.csv", "adj": "data/sz_adj.csv"},
+    "losloop": {"feat": "data/los_speed.csv", "adj": "data/los_adj.csv"},
+    "beijing": {"feat": "data/beijing_speed.csv", "adj": "data/beijing_adj.csv"},  # 添加新数据集
+}
+```
+那你可以运行脚本单独运行你自己的数据集：
+```
+python main.py --data beijing --model_name TGCN --max_epochs 3000 --learning_rate 0.001 --weight_decay 0 --batch_size 32 --hidden_dim 64 --loss mse_with_regularizer --settings supervised --gpus 1
+```
 
 ## 复现结果
 * GCN                         
