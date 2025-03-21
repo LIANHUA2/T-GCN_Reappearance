@@ -44,3 +44,5 @@ GRU module:<br>
 
 T-GCN Cell:<br>
 <img src="pics/Cell.png" width="400px" hight="400px" />
+
+我于2025年3月21日尝试复现此文章的代码。我使用的是PyTorch框架，因此主要以文件夹“T-GCN-PyTorch”里的代码为准。
