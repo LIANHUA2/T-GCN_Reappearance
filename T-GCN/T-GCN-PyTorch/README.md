@@ -22,7 +22,8 @@ Notice that [the original implementation](https://github.com/lehaifeng/T-GCN/tre
 
 ## 2025年3月21日记录
 
-我于 2025 年 3 月 21 日基本复现了原论文和原代码的结果，使用的是 Linux 系统（无 GUI）和 GTX3090 GPU。将本目录下的所有文件解压至系统根目录。
+我于 2025 年 3 月 21 日基本复现了原论文和原代码的结果，使用的是 Linux 系统（无 GUI）和 RTX3090 GPU。将本目录下的所有文件解压至系统根目录。
+文件夹data中是数据集，los表示洛杉矶，sz表示深圳，adj是邻接矩阵，speed可能是传感器记录的速度值。
 ```
 root
 ├── T-GCN-PyTorch
